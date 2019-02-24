@@ -1,31 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Osobni } from '../models/osobni.model';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators
-} from '@angular/forms';
 import { BmiService } from '../services/bmi.service';
 import { WhrService } from '../services/whr.service';
 import { HomaService } from 'app/services/homa.service';
 import { KrvnaSlikaService } from 'app/services/krvnaslika.service';
 import { KalkulatorRizikaService } from 'app/services/kalkulatorrizika.service';
-// import { ErrorStateMatcher } from "@angular/material/core";
-
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(
-//     control: FormControl | null,
-//     form: FormGroupDirective | NgForm | null
-//   ): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(
-//       control &&
-//       control.invalid &&
-//       (control.dirty || control.touched || isSubmitted)
-//     );
-//   }
-// }
 
 @Component({
   selector: 'app-calculator',
@@ -33,6 +12,7 @@ import { KalkulatorRizikaService } from 'app/services/kalkulatorrizika.service';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
+  isSubmitted = false;
   spolovi: string[] = ['Muškarac', 'Žena'];
   osobni: Osobni;
   bmi: number = null;
@@ -59,12 +39,6 @@ export class CalculatorComponent implements OnInit {
   rizikHoma: number = null;
   rizikWHR: number = null;
   rizikBMI: number = null;
-  // emailFormControl = new FormControl("", [
-  //   Validators.required,
-  //   Validators.email
-  // ]);
-
-  // matcher = new MyErrorStateMatcher();
 
   constructor(
     private bmiService: BmiService,
@@ -139,5 +113,6 @@ export class CalculatorComponent implements OnInit {
     this.calculateKks();
     this.calculateRisk();
     console.log(this.rizikUkupni);
+    this.isSubmitted = true;
   }
 }

@@ -54,7 +54,7 @@ export class WhrService {
   getWhr2(osobni: Osobni) {
     let whr2: number = null;
 
-    if (osobni.spol === 'm') {
+    if (osobni.spol === 'Muškarac') {
       if (whr2 <= 0.34) {
         this.stupanjWHR2 = 0;
       } else if (0.35 <= whr2 && whr2 < 0.41) {
@@ -68,7 +68,7 @@ export class WhrService {
       } else {
         this.stupanjWHR2 = 4;
       }
-    } else if (osobni.spol === 'f') {
+    } else if (osobni.spol === 'Žena') {
       if (whr2 <= 0.34) {
         this.stupanjWHR2 = 0;
       } else if (0.35 <= whr2 && whr2 < 0.42) {
@@ -92,18 +92,12 @@ export class WhrService {
   }
 
   getRizikWHR(osobni: Osobni) {
-    let stupanjRizikaWHR: number = null;
+    let stupanjRizikaWHR = 0;
 
     if (osobni.struk == null || osobni.bokovi == null) {
-      stupanjRizikaWHR = 0;
+      return stupanjRizikaWHR;
     } else {
-      stupanjRizikaWHR = this.stupanjWHR + this.stupanjWHR2;
+      return stupanjRizikaWHR = this.stupanjWHR + this.stupanjWHR2;
     }
-
-    console.log(stupanjRizikaWHR);
-    console.log(this.stupanjWHR);
-    console.log(this.stupanjWHR2);
-
-    return stupanjRizikaWHR;
   }
 }
