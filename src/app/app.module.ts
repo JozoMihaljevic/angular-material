@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from "@angular/router";
 
@@ -29,7 +29,6 @@ import { KalkulatorRizikaService } from './services/kalkulatorrizika.service';
   imports: [
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     ComponentsModule,
     RouterModule,

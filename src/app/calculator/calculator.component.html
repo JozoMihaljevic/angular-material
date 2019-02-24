@@ -9,21 +9,22 @@
           </div>
           <div class="card-body">
             <div>
-              <form>
+              <form [formGroup]="rizikForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                   <div class="offset-md-4 col-md-8">
-                    <mat-radio-group class="example-radio-group" [(ngModel)]="osobni.spol" name="spol">
-                      <mat-radio-button class="example-radio-button" *ngFor="let item of spolovi" [value]="item">
-                        {{ item }}
+                    <mat-radio-group class="example-radio-group" formControlName="spol">
+                      <mat-radio-button class="example-radio-button" value="Muškarac" checked>muškarac
                       </mat-radio-button>
+                      <mat-radio-button class="example-radio-button" value="Žena">žena</mat-radio-button>
                     </mat-radio-group>
-                    <div class="example-selected-value">{{ osobni.spol }}</div>
+                    <div class="example-selected-value">{{ rizikForm.value | json }}</div>
+                    <div class="example-selected-value">{{ rizikForm.status }}</div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Godine" [(ngModel)]="osobni.godine" name="godine" />
+                      <input matInput placeholder="Godine" name="godine" formControlName="godine" />
                     </mat-form-field>
                     {{ osobni.godine }}
                   </div>
@@ -31,13 +32,13 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-check">
-                      <mat-checkbox [(ngModel)]="osobni.dijabetes" name="dijabetes">Dijabetes</mat-checkbox>
+                      <mat-checkbox name="dijabetes" formControlName="dijabetes">Dijabetes</mat-checkbox>
                     </div>
                     <div class="form-check">
-                      <mat-checkbox [(ngModel)]="osobni.incident" name="incident">Srčani incident</mat-checkbox>
+                      <mat-checkbox name="incident" formControlName="incident">Srčani incident</mat-checkbox>
                     </div>
                     <div class="form-check">
-                      <mat-checkbox [(ngModel)]="osobni.pusac" name="pusac">Pušač</mat-checkbox>
+                      <mat-checkbox name="pusac" formControlName="pusac">Pušač</mat-checkbox>
                     </div>
                     Dijabetes: {{ osobni.dijabetes }} Srčani incident:
                     {{ osobni.incident }} Pušač: {{ osobni.pusac }}
@@ -46,7 +47,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width" (change)="onChange()">
-                      <input matInput placeholder="Visina" [(ngModel)]="osobni.visina" name="visina" />
+                      <input matInput placeholder="Visina" name="visina" formControlName="visina" />
                     </mat-form-field>
                     {{ osobni.visina }}
                   </div>
@@ -54,7 +55,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width" (change)="onChange()">
-                      <input matInput placeholder="Masa" [(ngModel)]="osobni.masa" name="masa" />
+                      <input matInput placeholder="Masa" name="masa" formControlName="masa" />
                     </mat-form-field>
                     {{ osobni.masa }}
                   </div>
@@ -64,30 +65,10 @@
                     bmi: {{bmi.toFixed(2)}}
                   </div>
                 </div>
-                <div class="row" *ngIf="bodyFatPostotak">
-                  <div class="col-md-12">
-                    bfp: {{bodyFatPostotak.toFixed(2)}}
-                  </div>
-                </div>
-                <div class="row" *ngIf="preporucenaTjelesnaMasa">
-                  <div class="col-md-12">
-                    prepTjMasa: {{preporucenaTjelesnaMasa.toFixed(2)}}
-                  </div>
-                </div>
-                <div class="row" *ngIf="bmiPoruka">
-                  <div class="col-md-12">
-                    bmiPoruka: {{bmiPoruka}}
-                  </div>
-                </div>
-                <div class="row" *ngIf="bodyFatPostotakPoruka">
-                  <div class="col-md-12">
-                    bodyFatPostotakPoruka: {{bodyFatPostotakPoruka}}
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width" (change)="onChange()">
-                      <input matInput placeholder="Opseg struka" [(ngModel)]="osobni.struk" name="struk" />
+                      <input matInput placeholder="Opseg struka" name="struk" formControlName="struk" />
                     </mat-form-field>
                     {{ osobni.struk }}
                   </div>
@@ -95,7 +76,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width" (change)="onChange()">
-                      <input matInput placeholder="Opseg bokova" [(ngModel)]="osobni.bokovi" name="bokovi" />
+                      <input matInput placeholder="Opseg bokova" name="bokovi" formControlName="bokovi" />
                     </mat-form-field>
                     {{ osobni.bokovi }}
                   </div>
@@ -103,11 +84,6 @@
                 <div class="row" *ngIf="whr">
                   <div class="col-md-12">
                     whr: {{whr.toFixed(2)}}
-                  </div>
-                </div>
-                <div class="row" *ngIf="whrPoruka">
-                  <div class="col-md-12">
-                    whrPoruka: {{whrPoruka}}
                   </div>
                 </div>
                 <div class="row" *ngIf="whr2">
@@ -118,7 +94,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Glukoza" [(ngModel)]="osobni.glukoza" name="glukoza" />
+                      <input matInput placeholder="Glukoza" name="glukoza" formControlName="glukoza" />
                     </mat-form-field>
                     {{ osobni.glukoza }}
                   </div>
@@ -126,7 +102,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Inzulin" [(ngModel)]="osobni.inzulin" name="inzulin" />
+                      <input matInput placeholder="Inzulin" name="inzulin" formControlName="inzulin" />
                     </mat-form-field>
                     {{ osobni.inzulin }}
                   </div>
@@ -134,8 +110,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Ukupni kolesterol" [(ngModel)]="osobni.ukupniKolesterol"
-                        name="ukupniKolesterol" />
+                      <input matInput placeholder="Ukupni kolesterol" name="ukupniKolesterol"
+                        formControlName="ukupniKolesterol" />
                     </mat-form-field>
                     {{ osobni.ukupniKolesterol }}
                   </div>
@@ -143,8 +119,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="HDL kolesterol" [(ngModel)]="osobni.hdlKolesterol"
-                        name="hdlKolesterol" />
+                      <input matInput placeholder="HDL kolesterol" name="hdlKolesterol"
+                        formControlName="hdlKolesterol" />
                     </mat-form-field>
                     {{ osobni.hdlKolesterol }}
                   </div>
@@ -152,8 +128,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="LDL kolesterol" [(ngModel)]="osobni.ldlKolesterol"
-                        name="ldlKolesterol" />
+                      <input matInput placeholder="LDL kolesterol" name="ldlKolesterol"
+                        formControlName="ldlKolesterol" />
                     </mat-form-field>
                     {{ osobni.ldlKolesterol }}
                   </div>
@@ -161,8 +137,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Trigliceridi" [(ngModel)]="osobni.trigliceridi"
-                        name="trigliceridi" />
+                      <input matInput placeholder="Trigliceridi" name="trigliceridi" formControlName="trigliceridi" />
                     </mat-form-field>
                     {{ osobni.trigliceridi }}
                   </div>
@@ -171,7 +146,7 @@
                 <button mat-raised-button type="button" class="btn btn-danger pull-left" (click)="onReset()">
                   Poništi
                 </button>
-                <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="onSubmit()">
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="!rizikForm.valid">
                   Dalje
                 </button>
                 <div class="clearfix"></div>
@@ -412,26 +387,29 @@
                   </ul>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header">
-                  <strong>Ukupni rizik</strong>
+              <div class="row">
+                <div class="card" style="width: 100%;">
+                  <div class="card-header">
+                    <strong>Ukupni rizik</strong>
 
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    {{ rizikUkupni }}
-                  </li>
-                </ul>
-                <div class="card-header">
-                  <strong>Ukupni rizik (%)</strong>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      {{ rizikUkupni }}
+                    </li>
+                  </ul>
+                  <div class="card-header">
+                    <strong>Ukupni rizik (%)</strong>
 
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      {{ rizikUkupniPostotak }}%
+                    </li>
+                  </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    {{ rizikUkupniPostotak }}%
-                  </li>
-                </ul>
               </div>
+
 
 
               <div class="row" *ngIf="osobni.inzulin && osobni.struk && osobni.bokovi;

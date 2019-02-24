@@ -16,7 +16,7 @@ export class Osobni {
   trigliceridi: number;
 
   constructor() {
-    this.spol = '';
+    this.spol = 'Muškarac';
     this.dijabetes = false;
     this.incident = false;
     this.pusac = false;

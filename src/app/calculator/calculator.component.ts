@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Osobni } from '../models/osobni.model';
 import { BmiService } from '../services/bmi.service';
 import { WhrService } from '../services/whr.service';
@@ -12,8 +13,8 @@ import { KalkulatorRizikaService } from 'app/services/kalkulatorrizika.service';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
+  rizikForm: FormGroup;
   isSubmitted = false;
-  spolovi: string[] = ['Muškarac', 'Žena'];
   osobni: Osobni;
   bmi: number = null;
   whr: number = null;
@@ -45,12 +46,38 @@ export class CalculatorComponent implements OnInit {
     private whrService: WhrService,
     private homaService: HomaService,
     private krvnaSlikaService: KrvnaSlikaService,
-    private kalkulatorRizikaService: KalkulatorRizikaService
+    private kalkulatorRizikaService: KalkulatorRizikaService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.getNew();
+  }
+
+  getNew() {
     this.osobni = new Osobni();
+    this.setRizikForm();
+  }
+
+  setRizikForm() {
     console.log(this.osobni);
+    this.rizikForm = this.fb.group({
+      spol: new FormControl(this.osobni.spol),
+      godine: new FormControl(this.osobni.godine, Validators.required),
+      dijabetes: new FormControl(this.osobni.dijabetes),
+      incident: new FormControl(this.osobni.incident),
+      pusac: new FormControl(this.osobni.pusac),
+      visina: new FormControl(this.osobni.visina, Validators.required),
+      masa: new FormControl(this.osobni.masa, Validators.required),
+      struk: new FormControl(this.osobni.struk, Validators.required),
+      bokovi: new FormControl(this.osobni.bokovi),
+      glukoza: new FormControl(this.osobni.glukoza, Validators.required),
+      inzulin: new FormControl(this.osobni.inzulin),
+      ukupniKolesterol: new FormControl(this.osobni.ukupniKolesterol, Validators.required),
+      hdlKolesterol: new FormControl(this.osobni.hdlKolesterol, Validators.required),
+      ldlKolesterol: new FormControl(this.osobni.ldlKolesterol, Validators.required),
+      trigliceridi: new FormControl(this.osobni.trigliceridi, Validators.required)
+    });
   }
 
   calculateBmi() {
@@ -94,19 +121,21 @@ export class CalculatorComponent implements OnInit {
   }
 
   onChange() {
+    this.osobni = this.rizikForm.value;
     this.calculateBmi();
     this.calculateWhr();
   }
 
   onReset() {
-    this.osobni = new Osobni();
+    this.getNew();
     this.bmi = null;
     this.whr = null;
     this.whr2 = null;
   }
 
   onSubmit() {
-    console.log(this.osobni);
+    console.log(this.rizikForm.value);
+    this.osobni = this.rizikForm.value;
     this.calculateBmi();
     this.calculateWhr();
     this.calculateHoma();

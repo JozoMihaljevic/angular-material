@@ -29,6 +29,7 @@ import { CalculatorComponent } from "app/calculator/calculator.component";
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -51,4 +52,4 @@ import { CalculatorComponent } from "app/calculator/calculator.component";
     CalculatorComponent
   ]
 })
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
