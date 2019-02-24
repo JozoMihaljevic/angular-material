@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="offset-sm-3 col-sm-6">
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title">Kalkulator rizika</h4>
@@ -10,18 +10,9 @@
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-8">
-                  <mat-radio-group
-                    class="example-radio-group"
-                    [(ngModel)]="osobni.spol"
-                    name="spol"
-                  >
-                    <mat-radio-button
-                      class="example-radio-button"
-                      *ngFor="let item of spolovi"
-                      [value]="item"
-                    >
+                <div class="offset-md-4 col-md-8">
+                  <mat-radio-group class="example-radio-group" [(ngModel)]="osobni.spol" name="spol">
+                    <mat-radio-button class="example-radio-button" *ngFor="let item of spolovi" [value]="item">
                       {{ item }}
                     </mat-radio-button>
                   </mat-radio-group>
@@ -31,12 +22,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Godine"
-                      [(ngModel)]="osobni.godine"
-                      name="osobni.godine"
-                    />
+                    <input matInput placeholder="Godine" [(ngModel)]="osobni.godine" name="osobni.godine" />
                   </mat-form-field>
                   {{ osobni.godine }}
                 </div>
@@ -44,21 +30,13 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-check">
-                    <mat-checkbox
-                      [(ngModel)]="osobni.dijabetes"
-                      name="dijabetes"
-                      >Dijabetes</mat-checkbox
-                    >
+                    <mat-checkbox [(ngModel)]="osobni.dijabetes" name="dijabetes">Dijabetes</mat-checkbox>
                   </div>
                   <div class="form-check">
-                    <mat-checkbox [(ngModel)]="osobni.incident" name="incident"
-                      >Srčani incident</mat-checkbox
-                    >
+                    <mat-checkbox [(ngModel)]="osobni.incident" name="incident">Srčani incident</mat-checkbox>
                   </div>
                   <div class="form-check">
-                    <mat-checkbox [(ngModel)]="osobni.pusac" name="pusac"
-                      >Pušač</mat-checkbox
-                    >
+                    <mat-checkbox [(ngModel)]="osobni.pusac" name="pusac">Pušač</mat-checkbox>
                   </div>
                   Dijabetes: {{ osobni.dijabetes }} Srčani incident:
                   {{ osobni.incident }} Pušač: {{ osobni.pusac }}
@@ -66,65 +44,80 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Visina"
-                      [(ngModel)]="osobni.visina"
-                      name="visina"
-                    />
+                  <mat-form-field class="example-full-width" (change)="onChange()">
+                    <input matInput placeholder="Visina" [(ngModel)]="osobni.visina" name="visina" />
                   </mat-form-field>
                   {{ osobni.visina }}
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Masa"
-                      [(ngModel)]="osobni.masa"
-                      name="masa"
-                    />
+                  <mat-form-field class="example-full-width" (change)="onChange()">
+                    <input matInput placeholder="Masa" [(ngModel)]="osobni.masa" name="masa" />
                   </mat-form-field>
                   {{ osobni.masa }}
                 </div>
               </div>
+              <div class="row" *ngIf="bmi">
+                <div class="col-md-12">
+                  bmi: {{bmi.toFixed(2)}}
+                </div>
+              </div>
+              <div class="row" *ngIf="bodyFatPostotak">
+                <div class="col-md-12">
+                  bfp: {{bodyFatPostotak.toFixed(2)}}
+                </div>
+              </div>
+              <div class="row" *ngIf="preporucenaTjelesnaMasa">
+                <div class="col-md-12">
+                  prepTjMasa: {{preporucenaTjelesnaMasa.toFixed(2)}}
+                </div>
+              </div>
+              <div class="row" *ngIf="bmiPoruka">
+                <div class="col-md-12">
+                  bmiPoruka: {{bmiPoruka}}
+                </div>
+              </div>
+              <div class="row" *ngIf="bodyFatPostotakPoruka">
+                <div class="col-md-12">
+                  bodyFatPostotakPoruka: {{bodyFatPostotakPoruka}}
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Opseg struka"
-                      [(ngModel)]="osobni.struk"
-                      name="struk"
-                    />
+                  <mat-form-field class="example-full-width" (change)="onChange()">
+                    <input matInput placeholder="Opseg struka" [(ngModel)]="osobni.struk" name="struk" />
                   </mat-form-field>
                   {{ osobni.struk }}
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Opseg bokova"
-                      [(ngModel)]="osobni.bokovi"
-                      name="bokovi"
-                    />
+                  <mat-form-field class="example-full-width" (change)="onChange()">
+                    <input matInput placeholder="Opseg bokova" [(ngModel)]="osobni.bokovi" name="bokovi" />
                   </mat-form-field>
                   {{ osobni.bokovi }}
+                </div>
+              </div>
+              <div class="row" *ngIf="whr">
+                <div class="col-md-12">
+                  whr: {{whr.toFixed(2)}}
+                </div>
+              </div>
+              <div class="row" *ngIf="whrPoruka">
+                <div class="col-md-12">
+                  whrPoruka: {{whrPoruka}}
+                </div>
+              </div>
+              <div class="row" *ngIf="whr2">
+                <div class="col-md-12">
+                  whr2: {{whr2.toFixed(2)}}
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Glukoza"
-                      [(ngModel)]="osobni.glukoza"
-                      name="glukoza"
-                    />
+                    <input matInput placeholder="Glukoza" [(ngModel)]="osobni.glukoza" name="glukoza" />
                   </mat-form-field>
                   {{ osobni.glukoza }}
                 </div>
@@ -132,12 +125,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Inzulin"
-                      [(ngModel)]="osobni.inzulin"
-                      name="inzulin"
-                    />
+                    <input matInput placeholder="Inzulin" [(ngModel)]="osobni.inzulin" name="inzulin" />
                   </mat-form-field>
                   {{ osobni.inzulin }}
                 </div>
@@ -145,12 +133,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Ukupni kolesterol"
-                      [(ngModel)]="osobni.ukupniKolesterol"
-                      name="ukupniKolesterol"
-                    />
+                    <input matInput placeholder="Ukupni kolesterol" [(ngModel)]="osobni.ukupniKolesterol"
+                      name="ukupniKolesterol" />
                   </mat-form-field>
                   {{ osobni.ukupniKolesterol }}
                 </div>
@@ -158,12 +142,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="HDL kolesterol"
-                      [(ngModel)]="osobni.hdlKolesterol"
-                      name="hdlKolesterol"
-                    />
+                    <input matInput placeholder="HDL kolesterol" [(ngModel)]="osobni.hdlKolesterol"
+                      name="hdlKolesterol" />
                   </mat-form-field>
                   {{ osobni.hdlKolesterol }}
                 </div>
@@ -171,12 +151,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="LDL kolesterol"
-                      [(ngModel)]="osobni.ldlKolesterol"
-                      name="ldlKolesterol"
-                    />
+                    <input matInput placeholder="LDL kolesterol" [(ngModel)]="osobni.ldlKolesterol"
+                      name="ldlKolesterol" />
                   </mat-form-field>
                   {{ osobni.ldlKolesterol }}
                 </div>
@@ -184,35 +160,21 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Trigliceridi"
-                      [(ngModel)]="osobni.trigliceridi"
-                      name="trigliceridi"
-                    />
+                    <input matInput placeholder="Trigliceridi" [(ngModel)]="osobni.trigliceridi" name="trigliceridi" />
                   </mat-form-field>
                   {{ osobni.trigliceridi }}
                 </div>
               </div>
 
-              <button
-                mat-raised-button
-                type="submit"
-                class="btn btn-danger pull-left"
-                (click)="onReset()"
-              >
+              <button mat-raised-button type="submit" class="btn btn-danger pull-left" (click)="onReset()">
                 Poništi
               </button>
-              <button
-                mat-raised-button
-                class="btn btn-danger pull-right"
-                (click)="onSubmit()"
-              >
+              <button mat-raised-button class="btn btn-danger pull-right" (click)="onSubmit()">
                 Dalje
               </button>
               <div class="clearfix"></div>
             </form>
-            <form class="example-form">
+            <!-- <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <input matInput placeholder="Email" [formControl]="emailFormControl"
                          [errorStateMatcher]="matcher">
@@ -224,7 +186,7 @@
                     Email is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-              </form>
+              </form> -->
           </div>
         </div>
       </div>
